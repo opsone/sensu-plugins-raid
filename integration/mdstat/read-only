@@ -1,0 +1,9 @@
+Personalities : [raid1] 
+md5 : active (read-only) raid1 sdf1[1] sde1[0]
+      1046528 blocks super 1.2 [2/2] [UU]
+      
+md2 : active raid1 sdl1[1] sdk1[0]
+      1046528 blocks super 1.2 [2/2] [UU]
+      [=====>...............]  check = 27.4% (287104/1046528) finish=0.1min speed=95701K/sec
+      
+unused devices: <none>
