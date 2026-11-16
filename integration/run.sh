@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Runs check-raid in a Debian container, as an unprivileged user like sensu-agent.
+# Runs check-raid-status in a Debian container, as an unprivileged user like sensu-agent.
 # The Docker Desktop kernel has no md driver: real arrays cannot be created, so the check
 # reads mdstat files captured from servers (healthy) or written by hand (failures), plus
 # the real /proc/mdstat, which is missing here.
 set -euo pipefail
 cd "$(dirname "$0")"
 
-image=check-raid-integration
+image=check-raid-status-integration
 docker build -q -t "$image" . >/dev/null
 
 failures=0
@@ -14,11 +14,11 @@ env_args=()
 expect() {
   local want=$1; shift
   local out rc=0
-  out=$(docker run --rm --user nobody ${env_args[@]+"${env_args[@]}"} "$image" check-raid "$@") || rc=$?
+  out=$(docker run --rm --user nobody ${env_args[@]+"${env_args[@]}"} "$image" check-raid-status "$@") || rc=$?
   if [[ $rc -eq $want ]]; then
-    echo "ok   [$rc] check-raid $* -> $out"
+    echo "ok   [$rc] check-raid-status $* -> $out"
   else
-    echo "FAIL [$rc, want $want] check-raid $* -> $out"
+    echo "FAIL [$rc, want $want] check-raid-status $* -> $out"
     failures=$((failures + 1))
   fi
 }

@@ -1,4 +1,4 @@
-# check-raid
+# check-raid-status
 
 Sensu Go check for Linux software RAID (mdadm) arrays.
 
@@ -25,7 +25,7 @@ A rebuild is critical: the array has no redundancy until it ends.
 ## Usage
 
 ```
-check-raid [flags]
+check-raid-status [flags]
 
   -a, --array strings     Array that must exist and be active (repeatable, md0 or /dev/md0)
   -e, --exclude strings   Glob pattern of arrays to ignore (repeatable)
@@ -42,10 +42,10 @@ Examples:
 
 ```sh
 # Every md array on the host
-check-raid
+check-raid-status
 
 # md0 and md1 must be present
-check-raid -a md0 -a md1
+check-raid-status -a md0 -a md1
 ```
 
 ## Check definition
@@ -59,7 +59,7 @@ api_version: core/v2
 metadata:
   name: check_raid
 spec:
-  command: check-raid {{ .annotations.check_raid_args | default "" }}
+  command: check-raid-status {{ .annotations.check_raid_args | default "" }}
   runtime_assets:
     - opsone/sensu-plugins-raid
   handlers:
@@ -77,6 +77,10 @@ Per-host extra arguments are set as an entity annotation:
 annotations:
   check_raid_args: "-a md0 -a md1"
 ```
+
+## Migration from 0.1.0
+
+The binary was renamed from `check-raid` to `check-raid-status`: replace it in the check command. Options, environment variables and the `check_raid_args` annotation are unchanged.
 
 ## Build and release
 
@@ -97,10 +101,10 @@ sensuctl create -f dist/opsone-sensu-plugins-raid_0.1.0.yml
 
 `make release` runs `make dist`, which runs the tests then produces in `dist/`:
 
-- one `linux/amd64` archive in Sensu asset layout (`bin/check-raid`);
+- one `linux/amd64` archive in Sensu asset layout (`bin/check-raid-status`);
 - the sha512 checksums file;
 - `opsone-sensu-plugins-raid_<version>.yml`, the asset definition pointing to the GitHub release of the tag.
 
 It then creates the GitHub release of the tag with `gh`, uploads the archives and checksums, and uses the asset definition as release description.
 
-`check-raid version` prints the version, commit and build date.
+`check-raid-status version` prints the version, commit and build date.

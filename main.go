@@ -27,9 +27,9 @@ type Config struct {
 var (
 	plugin = Config{
 		PluginConfig: sensu.PluginConfig{
-			Name:     "check-raid",
+			Name:     "check-raid-status",
 			Short:    "Alert on degraded, failed or inactive Linux software RAID (mdadm) arrays",
-			Keyspace: "sensu.io/plugins/check-raid/config",
+			Keyspace: "sensu.io/plugins/check-raid-status/config",
 		},
 	}
 

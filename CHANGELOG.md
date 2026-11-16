@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.0] - 2026-11-16
+
+### Changed
+- **Breaking**: binary renamed `check-raid` → `check-raid-status`, following the `check-<service>-status` naming. Options, environment variables and annotations are unchanged: only the check command changes.
+
 ## [0.1.0] - 2026-11-16
 
 ### Added
